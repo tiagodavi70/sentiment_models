@@ -123,6 +123,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 .dmypy.json
+
+
+# project
+keras/
 dmypy.json
 
 # Pyre type checker

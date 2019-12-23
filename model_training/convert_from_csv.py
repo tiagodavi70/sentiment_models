@@ -9,12 +9,15 @@ This script requires two command line parameters:
 It generates the images and saves them in three directories inside
 the output directory - Training, PublicTest, and PrivateTest.
 These are the three original splits in the dataset.
+3. delete disgusting (Change for Roberto project)
 '''
 import os
 import csv
 import argparse
 import numpy as np
 import scipy.misc
+import skimage
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--file', required=True, help="path of the csv file")
 parser.add_argument('-o', '--output', required=True, help="path of the output directory")
@@ -24,6 +27,7 @@ image = np.zeros((h, w), dtype=np.uint8)
 id = 1
 labels_csv = "id,emotion,usage\n"
 #0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral)
+# delete disgust after generating
 emotions_labels = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"]
 with open(args.file, 'rb') as csvfile:
 	datareader = csv.reader(csvfile, delimiter =',')
@@ -46,8 +50,8 @@ with open(args.file, 'rb') as csvfile:
 		image_folder = os.path.join(args.output, usage, emotions_labels[int(emotion)])
 		if not os.path.exists(image_folder):
 			os.makedirs(image_folder)
-		image_file =  os.path.join(image_folder , str(id) + '.jpg')
-		scipy.misc.imsave(image_file, stacked_image)
+		image_path =  os.path.join(image_folder , str(id) + '.jpg')
+		scipy.misc.imsave(image_path, skimage.transform.rescale(stacked_image,2))
 		labels_csv += str(id) + "," + str(emotion) + "," + usage + "\n"
 		id += 1
 		if id % 100 == 0:

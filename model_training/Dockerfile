@@ -73,7 +73,7 @@ ENV PYTHONPATH='/src/:$PYTHONPATH'
 # For F1 Score Metric
 # RUN pip install keras-metrics
 
-WORKDIR /src
+WORKDIR /home
 #
 # EXPOSE 8888
 #
