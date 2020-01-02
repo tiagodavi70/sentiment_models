@@ -7,15 +7,24 @@ import copy
 import pickle
 import numpy as np
 from keras.applications.inception_v3 import InceptionV3
+from keras.applications.vgg19 import VGG19
+from keras.applications.xception import Xception
+from keras.applications.mobilenet_v2 import MobileNetV2
+from keras.applications.nasnet import NASNetMobile
+from keras.applications.resnet_v2 import ResNet152V2
 
 
 def createModel(name, imshape, num_classes):
     input_tensor = Input(shape=imshape)
 
-    if name == "InceptionV3":
-        base_model = InceptionV3(input_tensor=input_tensor, include_top=False)
-    elif name == "VGG16":
-        pass
+    if name == "xception":
+        base_model = Xception(input_tensor=input_tensor, include_top=False)
+    elif name == "vgg19":
+        base_model = VGG19(input_tensor=input_tensor, include_top=False)
+    elif name == "nasnetmobile":
+        base_model = NASNetMobile(input_tensor=input_tensor, include_top=False)
+    elif name == "resnet152":
+        base_model = ResNet152V2(input_tensor=input_tensor, include_top=False)
 
     # add a global spatial average pooling layer
     x = base_model.output

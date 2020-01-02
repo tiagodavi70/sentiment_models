@@ -1,3 +1,4 @@
+
 from keras import *
 import keras
 import keras.preprocessing.image as im
@@ -53,16 +54,16 @@ def datafromDir(imshape, batch_size=32):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    # parser.add_argument('-f', '--file', required=True, help="path of the csv file")
+    parser.add_argument('-m', '--modelname', required=True, help="Model name")
     # parser.add_argument('-o', '--output', required=True, help="path of the output directory")
     args = parser.parse_args()
 
     alphas = [1e-4, 1e-5, 1e-6, 1e-7]
     lambdas = [1e-4, 1e-5, 1e-6]
-    batch_size = 32
+    batch_size = 64
     num_classes = 6
-    epochs = 2
-    dir_path = "training_results"
+    epochs = 50
+    dir_path = "training_results/" + args.modelname
     imshape = (48*2, 48*2, 3)
 
     for alpha in alphas:
@@ -77,10 +78,10 @@ if __name__ == '__main__':
                 print("####################################")
                 print("Starting: " + prefix)
 
-                data = datafromDir(imshape, 2)
+                data = datafromDir(imshape, batch_size)
                 # class indices
                 # {'angry': 0, 'fear': 1, 'happy': 2, 'neutral': 3, 'sad': 4, 'surprise': 5}
-                model = utils.createModel("InceptionV3", imshape, num_classes)
+                model = utils.createModel(args.modelname, imshape, num_classes)
 
                 model.compile(loss='categorical_crossentropy',
                               optimizer=opt,
@@ -89,7 +90,7 @@ if __name__ == '__main__':
                                 steps_per_epoch=len(data["training"]), # generator was crated with batch of 32 images
                                 epochs=epochs,
                                 validation_data=data["validation"],
-                                shuffle=True, verbose=2)
+                                shuffle=True, verbose=1)
                 scores = model.evaluate_generator(data["validation"], verbose=1)
 
                 print('Test loss:', scores[0])
