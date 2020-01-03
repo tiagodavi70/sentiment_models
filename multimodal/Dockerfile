@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libhdf5-dev \
       openmpi-bin \
       wget && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update && apt-get install -y --no-install-recommends \
+      libsndfile1
 
 # Install conda
 ENV CONDA_DIR /opt/conda

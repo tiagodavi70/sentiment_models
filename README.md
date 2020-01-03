@@ -44,4 +44,5 @@ Revise on dockerfiles:
 ERROR: google-auth 1.10.0 has requirement setuptools>=40.3.0, but you'll have setuptools 36.4.0 which is incompatible.
 ERROR: tensorboard 2.0.2 has requirement setuptools>=41.0.0, but you'll have setuptools 36.4.0 which is incompatible.
 
-variable input size for audio
+variable input size for audio (RNN)
+audio duration on preprocess audio script

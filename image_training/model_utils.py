@@ -21,8 +21,8 @@ def createModel(name, imshape, num_classes):
         base_model = Xception(input_tensor=input_tensor, include_top=False)
     elif name == "vgg19":
         base_model = VGG19(input_tensor=input_tensor, include_top=False)
-    elif name == "nasnetmobile":
-        base_model = NASNetMobile(input_tensor=input_tensor, include_top=False)
+    elif name == "mobilenet":
+        base_model = MobileNetV2(input_tensor=input_tensor, include_top=False)
     elif name == "resnet152":
         base_model = ResNet152V2(input_tensor=input_tensor, include_top=False)
 
